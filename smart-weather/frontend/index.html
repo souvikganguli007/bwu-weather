@@ -354,7 +354,8 @@ footer img{width:44px;height:44px;border-radius:50%;object-fit:cover;margin-bott
 </footer>
 
 <script>
-const BASE='http://localhost:5000';
+const BASE='https://bwu-weather.onrender.com';
+if(!localStorage.getItem('loggedIn')){window.location.href='register.html';}
 let chart;
 
 // Clock
