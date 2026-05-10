@@ -8,9 +8,9 @@ const app = express();
 
 // ✅ Middleware
 app.use(cors({
-  origin: ['https://bwu-weather.vercel.app', 'http://localhost:5000'],
-  methods: ['GET', 'POST', 'DELETE'],
-  credentials: true
+  origin:'*',
+  methods:['GET','POST','DELETE','PUT'],
+  credentials:false
 })); // ✅ FIX 1: Enable CORS for all origins (fixes browser blocking)
 app.use(express.json());
 
