@@ -7,7 +7,11 @@ const cors = require("cors"); // ✅ FIX 1: Import cors
 const app = express();
 
 // ✅ Middleware
-app.use(cors()); // ✅ FIX 1: Enable CORS for all origins (fixes browser blocking)
+app.use(cors({
+  origin: ['https://bwu-weather.vercel.app', 'http://localhost:5000'],
+  methods: ['GET', 'POST', 'DELETE'],
+  credentials: true
+})); // ✅ FIX 1: Enable CORS for all origins (fixes browser blocking)
 app.use(express.json());
 
 // ✅ Home Route (Test)
