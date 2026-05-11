@@ -111,4 +111,25 @@ router.get("/:city", async (req, res) => {
   }
 });
 
+router.post('/ai-report', async (req, res) => {
+  try{
+    const {city, temp, condition, humidity, wind} = req.body;
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_KEY}`,
+      {
+        contents:[{
+          parts:[{
+            text:`You are a professional TV weather anchor. Write a short engaging weather report (3-4 sentences) for ${city}. Temperature ${Math.round(temp)}°C, Weather: ${condition}, Humidity: ${humidity}%, Wind: ${Math.round(wind*3.6)} km/h. Start with "Good [morning/afternoon/evening]! Reporting live from ${city}..."`
+          }]
+        }]
+      }
+    );
+    const report=response.data.candidates[0].content.parts[0].text;
+    res.json({report});
+  }catch(e){
+    console.error(e.message);
+    res.status(500).json({error:'AI unavailable'});
+  }
+});
+
 module.exports = router;
